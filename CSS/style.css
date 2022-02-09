@@ -4,6 +4,10 @@
     --body: rgb(243, 243, 243);
     --header: #FFFFFF;
     --footer: #FFFFFF;
+    --comment: #FFFFFF;
+    --status: #DCDCDC;
+    --private: #FFDEDE;
+    --comment--time: #AAAAAA;
 }
 
 body {
@@ -36,6 +40,52 @@ header ion-icon {
 
 /*--- MAIN ---*/
 
+main {
+    margin-top: calc(80px + 26px);
+}
+
+.comment {
+    width: 100%;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    padding: 13px 9px;
+    background-color: var(--comment);
+    margin-bottom: 4px;
+}
+
+.comment:last-child {
+    margin-bottom: calc(80px + 4px);
+}
+
+.comment h4 {
+    line-height: 20px;
+}
+
+.comment time {
+    color: var(--comment--time);
+    margin-right: 8px;
+}
+
+.comment strong {
+    font-weight: 700;
+}
+
+.comment span:nth-child(5) {
+    margin-right: 5px;
+}
+
+.comment h4 * {
+    display: inline;
+}
+
+.status {
+    background-color: var(--status);
+}
+
+.private {
+    background-color: var(--private);
+}
 
 /*--- FOOTER ---*/
 
