@@ -8,11 +8,13 @@
     --status: #DCDCDC;
     --private: #FFDEDE;
     --comment--time: #AAAAAA;
+    --aside--background: rgba(0, 0, 0, 0.6);
 }
 
 body {
     background-color: var(--body);
     margin: 80px 0;
+    font-family: 'Roboto', sans-serif;
 }
 
 /*--- HEADER ---*/
@@ -87,6 +89,88 @@ main {
     background-color: var(--private);
 }
 
+/*--- ASIDE ---*/
+
+aside {
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.aside__background {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: var(--aside--background);
+}
+
+aside section {
+    position: absolute;
+    right: 0;
+    height: 100%;
+    width: 70%;
+    background-color: #FFFFFF;
+    padding: 0 18px;
+}
+
+aside h1 {
+    height: 84px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+aside h1:nth-child(3) {
+    height: 66px;
+}
+
+aside ion-icon {
+    font-size: 23px;
+    margin-right: 8px;
+}
+
+.contact {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.contact p, .visibility p {
+    height: 36px;
+    max-width: 75%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.check {
+    position: absolute;
+    right: 0;
+    color: #28BB25;
+    display: none;
+} 
+
+.selected {
+    box-shadow: 4px 4px 6px rgb(40, 187, 37, 0.4);
+}
+
+.selected .check {
+    display: block;
+}
+
+.visibility {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
 /*--- FOOTER ---*/
 
 footer {
@@ -116,6 +200,10 @@ footer ion-icon {
 
 /*--- OTHER ---*/
 
-ion-icon:hover {
+ion-icon:hover, aside .contact:hover, aside .visibility:hover {
     cursor: pointer;
+}
+
+.hidden {
+    display: none;
 }
