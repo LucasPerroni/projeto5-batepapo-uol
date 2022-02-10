@@ -22,45 +22,7 @@
         <ion-icon name="people" onclick="showSidebar()"></ion-icon>
     </header>
 
-    <main>
-
-        <div class="comment status">
-            <h4>
-                <time>(9:28:25)</time>
-                <strong>Lucas</strong> 
-                <span>joined the room...</span>
-            </h4>
-        </div>
-
-        <div class="comment">
-            <h4>
-                <time>(9:28:46)</time>
-                <strong>Lucas</strong> 
-                <span>to</span> 
-                <strong>All</strong><span>:</span>
-                <p>Hello world!</p>
-            </h4>
-        </div>
-
-        <div class="comment private">
-            <h4>
-                <time>(9:29:11)</time>
-                <strong>Luana</strong> 
-                <span>privately to</span> 
-                <strong>Lucas</strong><span>:</span>
-                <p>Hi there! How are you doing?</p>
-            </h4>
-        </div>
-        
-        <div class="comment status">
-            <h4>
-                <time>(9:29:17)</time>
-                <strong>Robson</strong> 
-                <span>left the room...</span>
-            </h4>
-        </div>
-
-    </main>
+    <main></main>
 
     <aside class="hidden">
         <div class="aside__background" onclick="showSidebar()"></div>
@@ -108,7 +70,7 @@
 
     <footer>
         <input type="text" placeholder="Write here...">
-        <ion-icon name="paper-plane-outline"></ion-icon>
+        <ion-icon name="paper-plane-outline" onclick="sendMessage()"></ion-icon>
     </footer>
 
     <!-- library -->
