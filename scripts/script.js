@@ -4,20 +4,34 @@ let people = ""
 let oldMessage = ""
 let newMessage = ""
 
-enterRoom()
-
-
 // ENTER THE ROOM
 
+function getName() {
+    name = document.querySelector(".log__window input").value
+
+    document.querySelector(".log__window").innerHTML = `
+    <img src="images/bate-papo-uol.jfif" alt="logo UOL">
+    <div>
+        <img src="images/Eclipse.gif" alt="loading gif">
+        <p class="loading__text">Loading...</p>
+    </div>
+    `
+    enterRoom()
+}
+
 function enterRoom() {
-    name = prompt("What's your name?")
     const promise = axios.post("https://mock-api.driven.com.br/api/v4/uol/participants", {name: name})
 
-    promise.then(getParticipants)
-    promise.then(setInterval(getMessages, 3000))
-    promise.then(setInterval(logMaintenance, 5000))
-    promise.then(setInterval(getParticipants, 10000))
+    promise.then(callFunctions)
     promise.catch(enterError)
+}
+
+function callFunctions() {
+    getParticipants()
+    getMessages()
+    setInterval(getMessages, 3000)
+    setInterval(logMaintenance, 5000)
+    setInterval(getParticipants, 10000)
 }
 
 function logMaintenance() {
@@ -25,16 +39,34 @@ function logMaintenance() {
 }
 
 function enterError(error) {
+    document.querySelector(".log__window").innerHTML = `
+    <img src="images/bate-papo-uol.jfif" alt="logo UOL">
+    <div>
+        <input type="text" placeholder="Write your name" class="log__input">
+        <button onclick="getName()">Enter</button>
+    </div>
+    <p class="log__error"></p>
+    `
+    
+    let text = document.querySelector(".log__error")
+    document.querySelector(".log__input").value = ""
+
     if (error.response.status === 400) {
-        alert("Name already exists")
+        text.innerHTML = "Name already exists"
     } else {
         alert("ERROR")
     }
-    console.log(error.response)
-    enterRoom()
+
+    inputLog = document.querySelector(".log__input")
+    inputLog.addEventListener("keyup", function (event) {
+        if (event.keyCode === 13) {
+            document.querySelector("button").click()
+        }
+    })
 }
 
 function getParticipants() {
+    document.querySelector(".log__window").classList.add("hidden")
     const promise = axios.get("https://mock-api.driven.com.br/api/v4/uol/participants")
     promise.then(showParticipants)
     promise.catch(participantsError)
@@ -254,9 +286,16 @@ function selectContact(element) {
     document.querySelector("footer p").innerHTML = `Sending to ${people} (${visibility})`
 }
 
-let input = document.querySelector("input");
-input.addEventListener("keyup", function(event) {
+let inputLog = document.querySelector(".log__input")
+inputLog.addEventListener("keyup", function(event) {
   if (event.keyCode === 13) {
-    document.querySelector("footer ion-icon").click();
+    document.querySelector("button").click()
+  }
+})
+
+let inputFooter = document.querySelector(".footer__input");
+inputFooter.addEventListener("keyup", function(event) {
+  if (event.keyCode === 13) {
+    document.querySelector("footer ion-icon").click()
   }
 })
