@@ -9,6 +9,7 @@
     --private: #FFDEDE;
     --comment--time: #AAAAAA;
     --aside--background: rgba(0, 0, 0, 0.6);
+    --footer--reference: rgb(126, 123, 123);
 }
 
 body {
@@ -192,12 +193,27 @@ footer {
     padding: 0 18px;
 }
 
-footer input {
+footer div {
     width: 90%;
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+footer input {
+    width: 100%;
     height: 30px;
     font-size: 18px;
     border: none;
     outline: none;
+}
+
+footer p {
+    margin-left: 3px;
+    font-size: 14px;
+    color: var(--footer--reference);
+    overflow: hidden;
 }
 
 footer ion-icon {

@@ -1,5 +1,8 @@
 let name = null
+let visibility = ""
 let people = ""
+let oldMessage = ""
+let newMessage = ""
 
 enterRoom()
 
@@ -111,7 +114,11 @@ function showParticipants(data) {
     if (document.querySelector(".contact.selected") === null) {
         document.querySelector(".contact:first-child").classList.add("selected")
         people = "All"
+        document.querySelector(".visibility.selected").classList.remove("selected")
+        document.querySelector(".visibility").classList.add("selected")
     } 
+    visibility = document.querySelector(".visibility.selected").childNodes[3].innerHTML
+    document.querySelector("footer p").innerHTML = `Sending to ${people} (${visibility})`
 
 }
 
@@ -177,6 +184,11 @@ function renderMessages(data) {
         }
 
     }
+    newMessage = document.querySelector(".comment:last-child")
+    if (newMessage.innerHTML !== oldMessage.innerHTML) {
+        newMessage.scrollIntoView()
+        oldMessage = newMessage
+    }
 }
 
 function errorMessages(error) {
@@ -236,5 +248,15 @@ function selectContact(element) {
         selectedVisibility.classList.remove("selected")
     }
     element.classList.toggle("selected")
-    people = element.childNodes[3].innerHTML
+
+    visibility = document.querySelector(".visibility.selected").childNodes[3].innerHTML
+    people = document.querySelector(".contacts .selected").childNodes[3].innerHTML
+    document.querySelector("footer p").innerHTML = `Sending to ${people} (${visibility})`
 }
+
+let input = document.querySelector("input");
+input.addEventListener("keyup", function(event) {
+  if (event.keyCode === 13) {
+    document.querySelector("footer ion-icon").click();
+  }
+})
