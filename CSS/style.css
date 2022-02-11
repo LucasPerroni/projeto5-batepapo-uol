@@ -135,6 +135,11 @@ aside ion-icon {
     margin-right: 8px;
 }
 
+.contacts {
+    max-height: 60%;
+    overflow-y: auto;
+}
+
 .contact {
     position: relative;
     display: flex;

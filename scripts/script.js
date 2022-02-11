@@ -1,4 +1,5 @@
 let name = null
+let people = ""
 
 enterRoom()
 
@@ -8,8 +9,11 @@ enterRoom()
 function enterRoom() {
     name = prompt("What's your name?")
     const promise = axios.post("https://mock-api.driven.com.br/api/v4/uol/participants", {name: name})
+    
+    promise.then(getParticipants)
+    promise.then(setInterval(getMessages, 3000))
     promise.then(setInterval(logMaintenance, 5000))
-    promise.then(setInterval(getMessages, 1000))
+    promise.then(setInterval(getParticipants, 10000))
     promise.catch(enterError)
 }
 
@@ -25,6 +29,95 @@ function enterError(error) {
     }
     console.log(error.response)
     enterRoom()
+}
+
+function getParticipants() {
+    const promise = axios.get("https://mock-api.driven.com.br/api/v4/uol/participants")
+    promise.then(showParticipants)
+    promise.catch(participantsError)
+}
+
+function showParticipants(data) {
+    let participants = data.data
+    let html = document.querySelector(".contacts")
+
+    if (people === name) {
+        html.innerHTML = `
+        <div class="contact" onclick="selectContact(this)">
+            <ion-icon name="people"></ion-icon>
+            <p>All</p>
+            <ion-icon name="checkmark-outline" class="check"></ion-icon>
+        </div>
+        <div class="contact selected" onclick="selectContact(this)">
+            <ion-icon name="person-circle"></ion-icon>
+            <p>${name}</p>
+            <ion-icon name="checkmark-outline" class="check"></ion-icon>
+        </div>
+        `
+    } else if (people === "All") {
+        html.innerHTML = `
+        <div class="contact selected" onclick="selectContact(this)">
+            <ion-icon name="people"></ion-icon>
+            <p>All</p>
+            <ion-icon name="checkmark-outline" class="check"></ion-icon>
+        </div>
+        <div class="contact" onclick="selectContact(this)">
+            <ion-icon name="person-circle"></ion-icon>
+            <p>${name}</p>
+            <ion-icon name="checkmark-outline" class="check"></ion-icon>
+        </div>
+        `
+    } else {
+        html.innerHTML = `
+        <div class="contact" onclick="selectContact(this)">
+            <ion-icon name="people"></ion-icon>
+            <p>All</p>
+            <ion-icon name="checkmark-outline" class="check"></ion-icon>
+        </div>
+        <div class="contact" onclick="selectContact(this)">
+            <ion-icon name="person-circle"></ion-icon>
+            <p>${name}</p>
+            <ion-icon name="checkmark-outline" class="check"></ion-icon>
+        </div>
+        `
+    }
+
+    for (let i = 0; i < participants.length; i++) {
+
+        if (participants[i].name !== name) {
+
+            if (people === participants[i].name) {
+                html.innerHTML += `
+                <div class="contact selected" onclick="selectContact(this)">
+                    <ion-icon name="person-circle"></ion-icon>
+                    <p>${participants[i].name}</p>
+                    <ion-icon name="checkmark-outline" class="check"></ion-icon>
+                </div>
+                `
+            } else {
+                html.innerHTML += `
+                <div class="contact" onclick="selectContact(this)">
+                    <ion-icon name="person-circle"></ion-icon>
+                    <p>${participants[i].name}</p>
+                    <ion-icon name="checkmark-outline" class="check"></ion-icon>
+                </div>
+                `
+            }
+
+        }
+
+    }
+
+    if (document.querySelector(".contact.selected") === null) {
+        document.querySelector(".contact:first-child").classList.add("selected")
+        people = "All"
+    } 
+
+}
+
+function participantsError(error) {
+    alert("Failed to load participants")
+    console.log(error.response)
 }
 
 
@@ -141,4 +234,5 @@ function selectContact(element) {
         selectedVisibility.classList.remove("selected")
     }
     element.classList.toggle("selected")
+    people = element.childNodes[3].innerHTML
 }
