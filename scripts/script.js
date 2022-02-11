@@ -9,7 +9,7 @@ enterRoom()
 function enterRoom() {
     name = prompt("What's your name?")
     const promise = axios.post("https://mock-api.driven.com.br/api/v4/uol/participants", {name: name})
-    
+
     promise.then(getParticipants)
     promise.then(setInterval(getMessages, 3000))
     promise.then(setInterval(logMaintenance, 5000))
@@ -159,17 +159,19 @@ function renderMessages(data) {
             </div>
             `
         } else if (array[i].type === "private_message") {
-            main.innerHTML += `
-            <div class="comment private">
-                <div>
-                    <time>${array[i].time}</time>
-                    <strong>${array[i].from}</strong> 
-                    <span>privately to</span> 
-                    <strong>${array[i].to}</strong><span>:</span>
-                    <p>${array[i].text}</p>
+            if (name === array[i].to || name === array[i].from) {
+                main.innerHTML += `
+                <div class="comment private">
+                    <div>
+                        <time>${array[i].time}</time>
+                        <strong>${array[i].from}</strong> 
+                        <span>privately to</span> 
+                        <strong>${array[i].to}</strong><span>:</span>
+                        <p>${array[i].text}</p>
+                    </div>
                 </div>
-            </div>
-            `
+                `
+            }
         } else {
             alert("Error to render specific message")
         }
