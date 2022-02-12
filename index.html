@@ -20,8 +20,8 @@
     <section class="log__window">
         <img src="images/bate-papo-uol.jfif" alt="logo UOL">
         <div>
-            <input type="text" placeholder="Write your name" class="log__input">
-            <button onclick="getName()">Enter</button>
+            <input type="text" placeholder="Write your name" class="log__input" data-identifier="enter-name">
+            <button onclick="getName()" data-identifier="start">Enter</button>
         </div>
         <p class="log__error"></p>
     </section>
@@ -43,12 +43,12 @@
 
             <h1>Choose the visibility:</h1>
 
-            <div class="visibility selected" onclick="selectContact(this)">
+            <div class="visibility selected" onclick="selectContact(this)" data-identifier="visibility">
                 <ion-icon name="lock-open"></ion-icon>
                 <p>Public</p>
                 <ion-icon name="checkmark-outline" class="check"></ion-icon>
             </div>
-            <div class="visibility" onclick="selectContact(this)">
+            <div class="visibility" onclick="selectContact(this)" data-identifier="visibility">
                 <ion-icon name="lock-closed"></ion-icon>
                 <p>Private</p>
                 <ion-icon name="checkmark-outline" class="check"></ion-icon>
@@ -62,7 +62,7 @@
             <input type="text" placeholder="Write here..." class="footer__input">
             <p></p>
         </div>
-        <ion-icon name="paper-plane-outline" onclick="sendMessage()"></ion-icon>
+        <ion-icon name="paper-plane-outline" onclick="sendMessage()" data-identifier="send-message"></ion-icon>
     </footer>
 
     <!-- library -->

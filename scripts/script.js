@@ -42,8 +42,8 @@ function enterError(error) {
     document.querySelector(".log__window").innerHTML = `
     <img src="images/bate-papo-uol.jfif" alt="logo UOL">
     <div>
-        <input type="text" placeholder="Write your name" class="log__input">
-        <button onclick="getName()">Enter</button>
+        <input type="text" placeholder="Write your name" class="log__input" data-identifier="enter-name">
+        <button onclick="getName()" data-identifier="start">Enter</button>
     </div>
     <p class="log__error"></p>
     `
@@ -78,12 +78,12 @@ function showParticipants(data) {
 
     if (people === name) {
         html.innerHTML = `
-        <div class="contact" onclick="selectContact(this)">
+        <div class="contact" onclick="selectContact(this)" data-identifier="participant">
             <ion-icon name="people"></ion-icon>
             <p>All</p>
             <ion-icon name="checkmark-outline" class="check"></ion-icon>
         </div>
-        <div class="contact selected" onclick="selectContact(this)">
+        <div class="contact selected" onclick="selectContact(this)" data-identifier="participant">
             <ion-icon name="person-circle"></ion-icon>
             <p>${name}</p>
             <ion-icon name="checkmark-outline" class="check"></ion-icon>
@@ -91,12 +91,12 @@ function showParticipants(data) {
         `
     } else if (people === "All") {
         html.innerHTML = `
-        <div class="contact selected" onclick="selectContact(this)">
+        <div class="contact selected" onclick="selectContact(this)" data-identifier="participant">
             <ion-icon name="people"></ion-icon>
             <p>All</p>
             <ion-icon name="checkmark-outline" class="check"></ion-icon>
         </div>
-        <div class="contact" onclick="selectContact(this)">
+        <div class="contact" onclick="selectContact(this)" data-identifier="participant">
             <ion-icon name="person-circle"></ion-icon>
             <p>${name}</p>
             <ion-icon name="checkmark-outline" class="check"></ion-icon>
@@ -104,12 +104,12 @@ function showParticipants(data) {
         `
     } else {
         html.innerHTML = `
-        <div class="contact" onclick="selectContact(this)">
+        <div class="contact" onclick="selectContact(this)" data-identifier="participant">
             <ion-icon name="people"></ion-icon>
             <p>All</p>
             <ion-icon name="checkmark-outline" class="check"></ion-icon>
         </div>
-        <div class="contact" onclick="selectContact(this)">
+        <div class="contact" onclick="selectContact(this)" data-identifier="participant">
             <ion-icon name="person-circle"></ion-icon>
             <p>${name}</p>
             <ion-icon name="checkmark-outline" class="check"></ion-icon>
@@ -123,7 +123,7 @@ function showParticipants(data) {
 
             if (people === participants[i].name) {
                 html.innerHTML += `
-                <div class="contact selected" onclick="selectContact(this)">
+                <div class="contact selected" onclick="selectContact(this)" data-identifier="participant">
                     <ion-icon name="person-circle"></ion-icon>
                     <p>${participants[i].name}</p>
                     <ion-icon name="checkmark-outline" class="check"></ion-icon>
@@ -131,7 +131,7 @@ function showParticipants(data) {
                 `
             } else {
                 html.innerHTML += `
-                <div class="contact" onclick="selectContact(this)">
+                <div class="contact" onclick="selectContact(this)" data-identifier="participant">
                     <ion-icon name="person-circle"></ion-icon>
                     <p>${participants[i].name}</p>
                     <ion-icon name="checkmark-outline" class="check"></ion-icon>
@@ -177,7 +177,7 @@ function renderMessages(data) {
 
         if (array[i].type === "status") {
             main.innerHTML += `
-            <div class="comment status">
+            <div class="comment status" data-identifier="message">
                 <div>
                     <time>${array[i].time}</time>
                     <strong>${array[i].from}</strong> 
@@ -187,7 +187,7 @@ function renderMessages(data) {
             `
         } else if (array[i].type === "message") {
             main.innerHTML += `
-            <div class="comment">
+            <div class="comment" data-identifier="message">
                 <div>
                     <time>${array[i].time}</time>
                     <strong>${array[i].from}</strong> 
@@ -200,7 +200,7 @@ function renderMessages(data) {
         } else if (array[i].type === "private_message") {
             if (name === array[i].to || name === array[i].from) {
                 main.innerHTML += `
-                <div class="comment private">
+                <div class="comment private" data-identifier="message">
                     <div>
                         <time>${array[i].time}</time>
                         <strong>${array[i].from}</strong> 
